@@ -1,0 +1,2359 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css">
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+                <body> <h1 align=center>CARTOGRAPHIE DES EQUIPEMENT D'INTERÊT PUBLIQUE BAMAKO</h1> <div id="map">
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet-src.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+        <script src="data/EcoleCoranique_0.js"></script>
+        <script src="data/Lycee_1.js"></script>
+        <script src="data/SecondaireGeneral_2.js"></script>
+        <script src="data/SecondCycle_3.js"></script>
+        <script src="data/1erCycle_4.js"></script>
+        <script src="data/Prescolaire_5.js"></script>
+        <script src="data/CentredeSante_6.js"></script>
+        <script src="data/CentreEtatCivil_7.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:26, minZoom:1
+        }).fitBounds([[12.5341397547,-8.14169378134],[12.7185049956,-7.85709634066]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        L.control.locate().addTo(map);
+        var measureControl = new L.Control.Measure({
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>,Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>',
+            maxZoom: 26
+        });
+        basemap0.addTo(map);
+        var basemap1 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 26
+        });
+        basemap1.addTo(map);
+        var basemap2 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 26
+        });
+        basemap2.addTo(map);
+        function setBounds() {
+        }
+        function pop_EcoleCoranique_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Commune</th>\
+                        <td>' + (feature.properties['Commune'] !== null ? Autolinker.link(String(feature.properties['Commune'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Quartier</th>\
+                        <td>' + (feature.properties['Quartier'] !== null ? Autolinker.link(String(feature.properties['Quartier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Equipements Scolaire</th>\
+                        <td>' + (feature.properties['Equipements Scolaire'] !== null ? Autolinker.link(String(feature.properties['Equipements Scolaire'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Operateur Type</th>\
+                        <td>' + (feature.properties['Operateur Type'] !== null ? Autolinker.link(String(feature.properties['Operateur Type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nom Etablissement</th>\
+                        <td>' + (feature.properties['Nom Etablissement'] !== null ? Autolinker.link(String(feature.properties['Nom Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Date Creation Etablissement</th>\
+                        <td>' + (feature.properties['Date Creation Etablissement'] !== null ? Autolinker.link(String(feature.properties['Date Creation Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Date Ouverture Etablissement</th>\
+                        <td>' + (feature.properties['Date Ouverture Etablissement'] !== null ? Autolinker.link(String(feature.properties['Date Ouverture Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Academie</th>\
+                        <td>' + (feature.properties['Academie'] !== null ? Autolinker.link(String(feature.properties['Academie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CAP</th>\
+                        <td>' + (feature.properties['CAP'] !== null ? Autolinker.link(String(feature.properties['CAP'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Direction</th>\
+                        <td>' + (feature.properties['Direction'] !== null ? Autolinker.link(String(feature.properties['Direction'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Genre</th>\
+                        <td>' + (feature.properties['Genre'] !== null ? Autolinker.link(String(feature.properties['Genre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Contacts Direuteur</th>\
+                        <td>' + (feature.properties['Contacts Direuteur'] !== null ? Autolinker.link(String(feature.properties['Contacts Direuteur'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Effectif Filles</th>\
+                        <td>' + (feature.properties['Effectif Filles'] !== null ? Autolinker.link(String(feature.properties['Effectif Filles'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Effectif Garçons</th>\
+                        <td>' + (feature.properties['Effectif Garçons'] !== null ? Autolinker.link(String(feature.properties['Effectif Garçons'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fonctionnaire dEtat</th>\
+                        <td>' + (feature.properties['Fonctionnaire dEtat'] !== null ? Autolinker.link(String(feature.properties['Fonctionnaire dEtat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fonctionnaires des Collectivites</th>\
+                        <td>' + (feature.properties['Fonctionnaires des Collectivites'] !== null ? Autolinker.link(String(feature.properties['Fonctionnaires des Collectivites'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Contractuels</th>\
+                        <td>' + (feature.properties['Contractuels'] !== null ? Autolinker.link(String(feature.properties['Contractuels'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Stagiaires</th>\
+                        <td>' + (feature.properties['Stagiaires'] !== null ? Autolinker.link(String(feature.properties['Stagiaires'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Generaliste</th>\
+                        <td>' + (feature.properties['Enseignant Generaliste'] !== null ? Autolinker.link(String(feature.properties['Enseignant Generaliste'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Physique-Chimie</th>\
+                        <td>' + (feature.properties['Enseignants Physique-Chimie'] !== null ? Autolinker.link(String(feature.properties['Enseignants Physique-Chimie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Mathematique</th>\
+                        <td>' + (feature.properties['Enseignant Mathematique'] !== null ? Autolinker.link(String(feature.properties['Enseignant Mathematique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Histoire-Geographie</th>\
+                        <td>' + (feature.properties['Enseignants Histoire-Geographie'] !== null ? Autolinker.link(String(feature.properties['Enseignants Histoire-Geographie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Biologie</th>\
+                        <td>' + (feature.properties['Enseignants Biologie'] !== null ? Autolinker.link(String(feature.properties['Enseignants Biologie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Français</th>\
+                        <td>' + (feature.properties['Enseignants Français'] !== null ? Autolinker.link(String(feature.properties['Enseignants Français'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Anglais</th>\
+                        <td>' + (feature.properties['Enseignants Anglais'] !== null ? Autolinker.link(String(feature.properties['Enseignants Anglais'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants EducationPhysique</th>\
+                        <td>' + (feature.properties['Enseignants EducationPhysique'] !== null ? Autolinker.link(String(feature.properties['Enseignants EducationPhysique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de Classes Etablissement</th>\
+                        <td>' + (feature.properties['Nombre de Classes Etablissement'] !== null ? Autolinker.link(String(feature.properties['Nombre de Classes Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Bon etat</th>\
+                        <td>' + (feature.properties['Infrastructure Bon etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Bon etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Degrade</th>\
+                        <td>' + (feature.properties['Infrastructure Degrade'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Degrade'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Mauvaise etat</th>\
+                        <td>' + (feature.properties['Infrastructure Mauvaise etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Mauvaise etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure en Tole</th>\
+                        <td>' + (feature.properties['Infrastructure en Tole'] !== null ? Autolinker.link(String(feature.properties['Infrastructure en Tole'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure en Dalle</th>\
+                        <td>' + (feature.properties['Infrastructure en Dalle'] !== null ? Autolinker.link(String(feature.properties['Infrastructure en Dalle'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Proprietaire Foncier</th>\
+                        <td>' + (feature.properties['Proprietaire Foncier'] !== null ? Autolinker.link(String(feature.properties['Proprietaire Foncier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Location</th>\
+                        <td>' + (feature.properties['Location'] !== null ? Autolinker.link(String(feature.properties['Location'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Mur cloture</th>\
+                        <td>' + (feature.properties['Mur cloture'] !== null ? Autolinker.link(String(feature.properties['Mur cloture'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Presence du Drapeau</th>\
+                        <td>' + (feature.properties['Presence du Drapeau'] !== null ? Autolinker.link(String(feature.properties['Presence du Drapeau'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Espace Vert</th>\
+                        <td>' + (feature.properties['Espace Vert'] !== null ? Autolinker.link(String(feature.properties['Espace Vert'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Plan du batiment</th>\
+                        <td>' + (feature.properties['Plan du batiment'] !== null ? Autolinker.link(String(feature.properties['Plan du batiment'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Forage</th>\
+                        <td>' + (feature.properties['Forage'] !== null ? Autolinker.link(String(feature.properties['Forage'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cantine Scolaire</th>\
+                        <td>' + (feature.properties['Cantine Scolaire'] !== null ? Autolinker.link(String(feature.properties['Cantine Scolaire'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infirmerie</th>\
+                        <td>' + (feature.properties['Infirmerie'] !== null ? Autolinker.link(String(feature.properties['Infirmerie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Toilettes</th>\
+                        <td>' + (feature.properties['Toilettes'] !== null ? Autolinker.link(String(feature.properties['Toilettes'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Vehicule Services</th>\
+                        <td>' + (feature.properties['Vehicule Services'] !== null ? Autolinker.link(String(feature.properties['Vehicule Services'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Motocycliste Service</th>\
+                        <td>' + (feature.properties['Motocycliste Service'] !== null ? Autolinker.link(String(feature.properties['Motocycliste Service'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">lEnvironnement de linfrastructure Propre</th>\
+                        <td>' + (feature.properties['lEnvironnement de linfrastructure Propre'] !== null ? Autolinker.link(String(feature.properties['lEnvironnement de linfrastructure Propre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Abonner A un GIE d’assainissement</th>\
+                        <td>' + (feature.properties['Abonner A un GIE d’assainissement'] !== null ? Autolinker.link(String(feature.properties['Abonner A un GIE d’assainissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A proximite dun depot dOrdure autorise</th>\
+                        <td>' + (feature.properties['A proximite dun depot dOrdure autorise'] !== null ? Autolinker.link(String(feature.properties['A proximite dun depot dOrdure autorise'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A proximite dun depot dOrdure anarchique</th>\
+                        <td>' + (feature.properties['A proximite dun depot dOrdure anarchique'] !== null ? Autolinker.link(String(feature.properties['A proximite dun depot dOrdure anarchique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A cote dun marche</th>\
+                        <td>' + (feature.properties['A cote dun marche'] !== null ? Autolinker.link(String(feature.properties['A cote dun marche'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A cote dune usine</th>\
+                        <td>' + (feature.properties['A cote dune usine'] !== null ? Autolinker.link(String(feature.properties['A cote dune usine'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Inondation</th>\
+                        <td>' + (feature.properties['Inondation'] !== null ? Autolinker.link(String(feature.properties['Inondation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau Electrifie</th>\
+                        <td>' + (feature.properties['Bureau Electrifie'] !== null ? Autolinker.link(String(feature.properties['Bureau Electrifie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau equipe dEau</th>\
+                        <td>' + (feature.properties['Bureau equipe dEau'] !== null ? Autolinker.link(String(feature.properties['Bureau equipe dEau'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau equipe de Telephone</th>\
+                        <td>' + (feature.properties['Bureau equipe de Telephone'] !== null ? Autolinker.link(String(feature.properties['Bureau equipe de Telephone'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau equipe dInternet</th>\
+                        <td>' + (feature.properties['Bureau equipe dInternet'] !== null ? Autolinker.link(String(feature.properties['Bureau equipe dInternet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau equipe de Climatisation</th>\
+                        <td>' + (feature.properties['Bureau equipe de Climatisation'] !== null ? Autolinker.link(String(feature.properties['Bureau equipe de Climatisation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de classe Electrifie</th>\
+                        <td>' + (feature.properties['Salle de classe Electrifie'] !== null ? Autolinker.link(String(feature.properties['Salle de classe Electrifie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle dInternet</th>\
+                        <td>' + (feature.properties['Salle dInternet'] !== null ? Autolinker.link(String(feature.properties['Salle dInternet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle Climatisation</th>\
+                        <td>' + (feature.properties['Salle Climatisation'] !== null ? Autolinker.link(String(feature.properties['Salle Climatisation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">latitude</th>\
+                        <td>' + (feature.properties['latitude'] !== null ? Autolinker.link(String(feature.properties['latitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">longitude</th>\
+                        <td>' + (feature.properties['longitude'] !== null ? Autolinker.link(String(feature.properties['longitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre_Homme_Fonctionnaire_Etat</th>\
+                        <td>' + (feature.properties['Nombre_Homme_Fonctionnaire_Etat'] !== null ? Autolinker.link(String(feature.properties['Nombre_Homme_Fonctionnaire_Etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">_index</th>\
+                        <td>' + (feature.properties['_index'] !== null ? Autolinker.link(String(feature.properties['_index'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_EcoleCoranique_0_0() {
+            return {
+                pane: 'pane_EcoleCoranique_0',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(165,0,253,1.0)',
+            }
+        }
+        map.createPane('pane_EcoleCoranique_0');
+        map.getPane('pane_EcoleCoranique_0').style.zIndex = 400;
+        map.getPane('pane_EcoleCoranique_0').style['mix-blend-mode'] = 'normal';
+        var layer_EcoleCoranique_0 = new L.geoJson(json_EcoleCoranique_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_EcoleCoranique_0',
+            onEachFeature: pop_EcoleCoranique_0,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_EcoleCoranique_0_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_EcoleCoranique_0);
+        map.addLayer(layer_EcoleCoranique_0);
+        function pop_Lycee_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Commune</th>\
+                        <td>' + (feature.properties['Commune'] !== null ? Autolinker.link(String(feature.properties['Commune'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Quartier</th>\
+                        <td>' + (feature.properties['Quartier'] !== null ? Autolinker.link(String(feature.properties['Quartier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Equipements Scolaire</th>\
+                        <td>' + (feature.properties['Equipements Scolaire'] !== null ? Autolinker.link(String(feature.properties['Equipements Scolaire'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Operateur_Type</th>\
+                        <td>' + (feature.properties['Operateur_Type'] !== null ? Autolinker.link(String(feature.properties['Operateur_Type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nom Etablissement</th>\
+                        <td>' + (feature.properties['Nom Etablissement'] !== null ? Autolinker.link(String(feature.properties['Nom Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Date Creation Etablissement</th>\
+                        <td>' + (feature.properties['Date Creation Etablissement'] !== null ? Autolinker.link(String(feature.properties['Date Creation Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Date Ouverture Etablissement</th>\
+                        <td>' + (feature.properties['Date Ouverture Etablissement'] !== null ? Autolinker.link(String(feature.properties['Date Ouverture Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Academie</th>\
+                        <td>' + (feature.properties['Academie'] !== null ? Autolinker.link(String(feature.properties['Academie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CAP</th>\
+                        <td>' + (feature.properties['CAP'] !== null ? Autolinker.link(String(feature.properties['CAP'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Direction</th>\
+                        <td>' + (feature.properties['Direction'] !== null ? Autolinker.link(String(feature.properties['Direction'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Genre</th>\
+                        <td>' + (feature.properties['Genre'] !== null ? Autolinker.link(String(feature.properties['Genre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Contacts Proviseur</th>\
+                        <td>' + (feature.properties['Contacts Proviseur'] !== null ? Autolinker.link(String(feature.properties['Contacts Proviseur'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Effectif Filles</th>\
+                        <td>' + (feature.properties['Effectif Filles'] !== null ? Autolinker.link(String(feature.properties['Effectif Filles'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Effectif Garçons</th>\
+                        <td>' + (feature.properties['Effectif Garçons'] !== null ? Autolinker.link(String(feature.properties['Effectif Garçons'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fonctionnaire dEtat</th>\
+                        <td>' + (feature.properties['Fonctionnaire dEtat'] !== null ? Autolinker.link(String(feature.properties['Fonctionnaire dEtat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fonctionnaires des Collectivites</th>\
+                        <td>' + (feature.properties['Fonctionnaires des Collectivites'] !== null ? Autolinker.link(String(feature.properties['Fonctionnaires des Collectivites'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Contractuels</th>\
+                        <td>' + (feature.properties['Contractuels'] !== null ? Autolinker.link(String(feature.properties['Contractuels'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Stagiaires</th>\
+                        <td>' + (feature.properties['Stagiaires'] !== null ? Autolinker.link(String(feature.properties['Stagiaires'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Physique-Chimie</th>\
+                        <td>' + (feature.properties['Enseignants Physique-Chimie'] !== null ? Autolinker.link(String(feature.properties['Enseignants Physique-Chimie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Mathematique</th>\
+                        <td>' + (feature.properties['Enseignants Mathematique'] !== null ? Autolinker.link(String(feature.properties['Enseignants Mathematique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Histoire-Geographie</th>\
+                        <td>' + (feature.properties['Enseignants Histoire-Geographie'] !== null ? Autolinker.link(String(feature.properties['Enseignants Histoire-Geographie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Biologie</th>\
+                        <td>' + (feature.properties['Enseignant Biologie'] !== null ? Autolinker.link(String(feature.properties['Enseignant Biologie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Français</th>\
+                        <td>' + (feature.properties['Enseignant Français'] !== null ? Autolinker.link(String(feature.properties['Enseignant Français'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Anglais</th>\
+                        <td>' + (feature.properties['Enseignant Anglais'] !== null ? Autolinker.link(String(feature.properties['Enseignant Anglais'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Russe</th>\
+                        <td>' + (feature.properties['Enseignants Russe'] !== null ? Autolinker.link(String(feature.properties['Enseignants Russe'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Chinois</th>\
+                        <td>' + (feature.properties['Enseignants Chinois'] !== null ? Autolinker.link(String(feature.properties['Enseignants Chinois'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Allemand</th>\
+                        <td>' + (feature.properties['Enseignants Allemand'] !== null ? Autolinker.link(String(feature.properties['Enseignants Allemand'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Espagnole</th>\
+                        <td>' + (feature.properties['Enseignants Espagnole'] !== null ? Autolinker.link(String(feature.properties['Enseignants Espagnole'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Philosophie</th>\
+                        <td>' + (feature.properties['Enseignants Philosophie'] !== null ? Autolinker.link(String(feature.properties['Enseignants Philosophie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Education Physique</th>\
+                        <td>' + (feature.properties['Enseignants Education Physique'] !== null ? Autolinker.link(String(feature.properties['Enseignants Education Physique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants DessinTechnique</th>\
+                        <td>' + (feature.properties['Enseignants DessinTechnique'] !== null ? Autolinker.link(String(feature.properties['Enseignants DessinTechnique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre Classes Etablissement</th>\
+                        <td>' + (feature.properties['Nombre Classes Etablissement'] !== null ? Autolinker.link(String(feature.properties['Nombre Classes Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure bon etat</th>\
+                        <td>' + (feature.properties['Infrastructure bon etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure bon etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Degrade</th>\
+                        <td>' + (feature.properties['Infrastructure Degrade'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Degrade'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Mauvais etat</th>\
+                        <td>' + (feature.properties['Infrastructure Mauvais etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Mauvais etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure en Tole</th>\
+                        <td>' + (feature.properties['Infrastructure en Tole'] !== null ? Autolinker.link(String(feature.properties['Infrastructure en Tole'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure en Dalle</th>\
+                        <td>' + (feature.properties['Infrastructure en Dalle'] !== null ? Autolinker.link(String(feature.properties['Infrastructure en Dalle'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Proprietaire Foncier</th>\
+                        <td>' + (feature.properties['Proprietaire Foncier'] !== null ? Autolinker.link(String(feature.properties['Proprietaire Foncier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Location</th>\
+                        <td>' + (feature.properties['Location'] !== null ? Autolinker.link(String(feature.properties['Location'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Mur cloture</th>\
+                        <td>' + (feature.properties['Mur cloture'] !== null ? Autolinker.link(String(feature.properties['Mur cloture'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Presence du Drapeau</th>\
+                        <td>' + (feature.properties['Presence du Drapeau'] !== null ? Autolinker.link(String(feature.properties['Presence du Drapeau'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Espace Vert</th>\
+                        <td>' + (feature.properties['Espace Vert'] !== null ? Autolinker.link(String(feature.properties['Espace Vert'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Plan du bâtiment</th>\
+                        <td>' + (feature.properties['Plan du bâtiment'] !== null ? Autolinker.link(String(feature.properties['Plan du bâtiment'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure equipe Forage</th>\
+                        <td>' + (feature.properties['Infrastructure equipe Forage'] !== null ? Autolinker.link(String(feature.properties['Infrastructure equipe Forage'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cantine Scolaire</th>\
+                        <td>' + (feature.properties['Cantine Scolaire'] !== null ? Autolinker.link(String(feature.properties['Cantine Scolaire'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infirmerie</th>\
+                        <td>' + (feature.properties['Infirmerie'] !== null ? Autolinker.link(String(feature.properties['Infirmerie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Toilettes</th>\
+                        <td>' + (feature.properties['Toilettes'] !== null ? Autolinker.link(String(feature.properties['Toilettes'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Vehicule de Services</th>\
+                        <td>' + (feature.properties['Vehicule de Services'] !== null ? Autolinker.link(String(feature.properties['Vehicule de Services'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Motocycliste de Service</th>\
+                        <td>' + (feature.properties['Motocycliste de Service'] !== null ? Autolinker.link(String(feature.properties['Motocycliste de Service'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">lenvironnement de linfrastructure Propre</th>\
+                        <td>' + (feature.properties['lenvironnement de linfrastructure Propre'] !== null ? Autolinker.link(String(feature.properties['lenvironnement de linfrastructure Propre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Abonner à un GIE d’assainissement</th>\
+                        <td>' + (feature.properties['Abonner à un GIE d’assainissement'] !== null ? Autolinker.link(String(feature.properties['Abonner à un GIE d’assainissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A proximite d’un depot dordure autorise</th>\
+                        <td>' + (feature.properties['A proximite d’un depot dordure autorise'] !== null ? Autolinker.link(String(feature.properties['A proximite d’un depot dordure autorise'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A proximite dun depot dordure anarchique</th>\
+                        <td>' + (feature.properties['A proximite dun depot dordure anarchique'] !== null ? Autolinker.link(String(feature.properties['A proximite dun depot dordure anarchique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A cote dun marche</th>\
+                        <td>' + (feature.properties['A cote dun marche'] !== null ? Autolinker.link(String(feature.properties['A cote dun marche'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A cote dune usine</th>\
+                        <td>' + (feature.properties['A cote dune usine'] !== null ? Autolinker.link(String(feature.properties['A cote dune usine'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Inondation</th>\
+                        <td>' + (feature.properties['Inondation'] !== null ? Autolinker.link(String(feature.properties['Inondation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Proviseur Electrifie</th>\
+                        <td>' + (feature.properties['Bureau du Proviseur Electrifie'] !== null ? Autolinker.link(String(feature.properties['Bureau du Proviseur Electrifie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau equipe dEau</th>\
+                        <td>' + (feature.properties['Bureau equipe dEau'] !== null ? Autolinker.link(String(feature.properties['Bureau equipe dEau'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Proviseur equipe de Telephone</th>\
+                        <td>' + (feature.properties['Bureau du Proviseur equipe de Telephone'] !== null ? Autolinker.link(String(feature.properties['Bureau du Proviseur equipe de Telephone'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Proviseur equipe dInternet</th>\
+                        <td>' + (feature.properties['Bureau du Proviseur equipe dInternet'] !== null ? Autolinker.link(String(feature.properties['Bureau du Proviseur equipe dInternet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Proviseur equipe de Climatisation</th>\
+                        <td>' + (feature.properties['Bureau du Proviseur equipe de Climatisation'] !== null ? Autolinker.link(String(feature.properties['Bureau du Proviseur equipe de Climatisation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de classe Electrifie</th>\
+                        <td>' + (feature.properties['Salle de classe Electrifie'] !== null ? Autolinker.link(String(feature.properties['Salle de classe Electrifie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de classe equipe dInternet</th>\
+                        <td>' + (feature.properties['Salle de classe equipe dInternet'] !== null ? Autolinker.link(String(feature.properties['Salle de classe equipe dInternet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de classe Climatisee</th>\
+                        <td>' + (feature.properties['Salle de classe Climatisee'] !== null ? Autolinker.link(String(feature.properties['Salle de classe Climatisee'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">latitude</th>\
+                        <td>' + (feature.properties['latitude'] !== null ? Autolinker.link(String(feature.properties['latitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">longitude</th>\
+                        <td>' + (feature.properties['longitude'] !== null ? Autolinker.link(String(feature.properties['longitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">_index</th>\
+                        <td>' + (feature.properties['_index'] !== null ? Autolinker.link(String(feature.properties['_index'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Lycee_1_0() {
+            return {
+                pane: 'pane_Lycee_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(246,71,194,1.0)',
+            }
+        }
+        map.createPane('pane_Lycee_1');
+        map.getPane('pane_Lycee_1').style.zIndex = 401;
+        map.getPane('pane_Lycee_1').style['mix-blend-mode'] = 'normal';
+        var layer_Lycee_1 = new L.geoJson(json_Lycee_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Lycee_1',
+            onEachFeature: pop_Lycee_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Lycee_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Lycee_1);
+        map.addLayer(layer_Lycee_1);
+        function pop_SecondaireGeneral_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Commune</th>\
+                        <td>' + (feature.properties['Commune'] !== null ? Autolinker.link(String(feature.properties['Commune'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Quartier</th>\
+                        <td>' + (feature.properties['Quartier'] !== null ? Autolinker.link(String(feature.properties['Quartier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Equipements Scolaire</th>\
+                        <td>' + (feature.properties['Equipements Scolaire'] !== null ? Autolinker.link(String(feature.properties['Equipements Scolaire'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Operateur Type</th>\
+                        <td>' + (feature.properties['Operateur Type'] !== null ? Autolinker.link(String(feature.properties['Operateur Type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nom de lEtablissement</th>\
+                        <td>' + (feature.properties['Nom de lEtablissement'] !== null ? Autolinker.link(String(feature.properties['Nom de lEtablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Date Creation Etablissement</th>\
+                        <td>' + (feature.properties['Date Creation Etablissement'] !== null ? Autolinker.link(String(feature.properties['Date Creation Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Date Ouverture Etablissement</th>\
+                        <td>' + (feature.properties['Date Ouverture Etablissement'] !== null ? Autolinker.link(String(feature.properties['Date Ouverture Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Academie</th>\
+                        <td>' + (feature.properties['Academie'] !== null ? Autolinker.link(String(feature.properties['Academie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CAP</th>\
+                        <td>' + (feature.properties['CAP'] !== null ? Autolinker.link(String(feature.properties['CAP'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Proviseur</th>\
+                        <td>' + (feature.properties['Proviseur'] !== null ? Autolinker.link(String(feature.properties['Proviseur'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Genre</th>\
+                        <td>' + (feature.properties['Genre'] !== null ? Autolinker.link(String(feature.properties['Genre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Contacts Proviseur</th>\
+                        <td>' + (feature.properties['Contacts Proviseur'] !== null ? Autolinker.link(String(feature.properties['Contacts Proviseur'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Effectif Filles</th>\
+                        <td>' + (feature.properties['Effectif Filles'] !== null ? Autolinker.link(String(feature.properties['Effectif Filles'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Effectif Garçons</th>\
+                        <td>' + (feature.properties['Effectif Garçons'] !== null ? Autolinker.link(String(feature.properties['Effectif Garçons'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fonctionnaire dEtat</th>\
+                        <td>' + (feature.properties['Fonctionnaire dEtat'] !== null ? Autolinker.link(String(feature.properties['Fonctionnaire dEtat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fonctionnaire Collectivites</th>\
+                        <td>' + (feature.properties['Fonctionnaire Collectivites'] !== null ? Autolinker.link(String(feature.properties['Fonctionnaire Collectivites'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Contractuels</th>\
+                        <td>' + (feature.properties['Contractuels'] !== null ? Autolinker.link(String(feature.properties['Contractuels'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Stagiaires</th>\
+                        <td>' + (feature.properties['Stagiaires'] !== null ? Autolinker.link(String(feature.properties['Stagiaires'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Physique-Chimie</th>\
+                        <td>' + (feature.properties['Enseignant Physique-Chimie'] !== null ? Autolinker.link(String(feature.properties['Enseignant Physique-Chimie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Mathematique</th>\
+                        <td>' + (feature.properties['Enseignant Mathematique'] !== null ? Autolinker.link(String(feature.properties['Enseignant Mathematique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Histoire-Geographie</th>\
+                        <td>' + (feature.properties['Enseignant Histoire-Geographie'] !== null ? Autolinker.link(String(feature.properties['Enseignant Histoire-Geographie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Biologie</th>\
+                        <td>' + (feature.properties['Enseignant Biologie'] !== null ? Autolinker.link(String(feature.properties['Enseignant Biologie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Français</th>\
+                        <td>' + (feature.properties['Enseignant Français'] !== null ? Autolinker.link(String(feature.properties['Enseignant Français'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nenseignant Anglais</th>\
+                        <td>' + (feature.properties['Nenseignant Anglais'] !== null ? Autolinker.link(String(feature.properties['Nenseignant Anglais'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Russe</th>\
+                        <td>' + (feature.properties['Enseignant Russe'] !== null ? Autolinker.link(String(feature.properties['Enseignant Russe'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Chinois</th>\
+                        <td>' + (feature.properties['Enseignant Chinois'] !== null ? Autolinker.link(String(feature.properties['Enseignant Chinois'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Allemand</th>\
+                        <td>' + (feature.properties['Enseignant Allemand'] !== null ? Autolinker.link(String(feature.properties['Enseignant Allemand'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Espagnole</th>\
+                        <td>' + (feature.properties['Enseignant Espagnole'] !== null ? Autolinker.link(String(feature.properties['Enseignant Espagnole'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Philosophie</th>\
+                        <td>' + (feature.properties['Enseignant Philosophie'] !== null ? Autolinker.link(String(feature.properties['Enseignant Philosophie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant Education-Physique</th>\
+                        <td>' + (feature.properties['Enseignant Education-Physique'] !== null ? Autolinker.link(String(feature.properties['Enseignant Education-Physique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignant DessinTechnique</th>\
+                        <td>' + (feature.properties['Enseignant DessinTechnique'] !== null ? Autolinker.link(String(feature.properties['Enseignant DessinTechnique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Classe Etablissement</th>\
+                        <td>' + (feature.properties['Classe Etablissement'] !== null ? Autolinker.link(String(feature.properties['Classe Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure bon etat</th>\
+                        <td>' + (feature.properties['Infrastructure bon etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure bon etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Degrade</th>\
+                        <td>' + (feature.properties['Infrastructure Degrade'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Degrade'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Mauvais etat</th>\
+                        <td>' + (feature.properties['Infrastructure Mauvais etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Mauvais etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure  en Tole</th>\
+                        <td>' + (feature.properties['Infrastructure  en Tole'] !== null ? Autolinker.link(String(feature.properties['Infrastructure  en Tole'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure en Dalle</th>\
+                        <td>' + (feature.properties['Infrastructure en Dalle'] !== null ? Autolinker.link(String(feature.properties['Infrastructure en Dalle'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Proprietaire Foncier</th>\
+                        <td>' + (feature.properties['Proprietaire Foncier'] !== null ? Autolinker.link(String(feature.properties['Proprietaire Foncier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Location</th>\
+                        <td>' + (feature.properties['Location'] !== null ? Autolinker.link(String(feature.properties['Location'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Mur cl™ture</th>\
+                        <td>' + (feature.properties['Mur cl™ture'] !== null ? Autolinker.link(String(feature.properties['Mur cl™ture'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Presence du Drapeau</th>\
+                        <td>' + (feature.properties['Presence du Drapeau'] !== null ? Autolinker.link(String(feature.properties['Presence du Drapeau'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Espace Vert</th>\
+                        <td>' + (feature.properties['Espace Vert'] !== null ? Autolinker.link(String(feature.properties['Espace Vert'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Plan du b‰timent</th>\
+                        <td>' + (feature.properties['Plan du b‰timent'] !== null ? Autolinker.link(String(feature.properties['Plan du b‰timent'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Equipe de Forage</th>\
+                        <td>' + (feature.properties['Infrastructure Equipe de Forage'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Equipe de Forage'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cantine Scolaire</th>\
+                        <td>' + (feature.properties['Cantine Scolaire'] !== null ? Autolinker.link(String(feature.properties['Cantine Scolaire'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infirmerie</th>\
+                        <td>' + (feature.properties['Infirmerie'] !== null ? Autolinker.link(String(feature.properties['Infirmerie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Toilettes</th>\
+                        <td>' + (feature.properties['Toilettes'] !== null ? Autolinker.link(String(feature.properties['Toilettes'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Vehicule de Services</th>\
+                        <td>' + (feature.properties['Vehicule de Services'] !== null ? Autolinker.link(String(feature.properties['Vehicule de Services'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Motocycliste de Service</th>\
+                        <td>' + (feature.properties['Motocycliste de Service'] !== null ? Autolinker.link(String(feature.properties['Motocycliste de Service'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lenvironnement de linfrastructure Propre</th>\
+                        <td>' + (feature.properties['Lenvironnement de linfrastructure Propre'] !== null ? Autolinker.link(String(feature.properties['Lenvironnement de linfrastructure Propre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Abonner ˆ un GIE dÕassainissement</th>\
+                        <td>' + (feature.properties['Abonner ˆ un GIE dÕassainissement'] !== null ? Autolinker.link(String(feature.properties['Abonner ˆ un GIE dÕassainissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A proximite dun depot dordure autorise</th>\
+                        <td>' + (feature.properties['A proximite dun depot dordure autorise'] !== null ? Autolinker.link(String(feature.properties['A proximite dun depot dordure autorise'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A proximite dun depot dordure anarchique</th>\
+                        <td>' + (feature.properties['A proximite dun depot dordure anarchique'] !== null ? Autolinker.link(String(feature.properties['A proximite dun depot dordure anarchique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A cote dun marche</th>\
+                        <td>' + (feature.properties['A cote dun marche'] !== null ? Autolinker.link(String(feature.properties['A cote dun marche'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A cote dune usine</th>\
+                        <td>' + (feature.properties['A cote dune usine'] !== null ? Autolinker.link(String(feature.properties['A cote dune usine'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Inondation</th>\
+                        <td>' + (feature.properties['Inondation'] !== null ? Autolinker.link(String(feature.properties['Inondation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Proviseur Electrifie</th>\
+                        <td>' + (feature.properties['Bureau du Proviseur Electrifie'] !== null ? Autolinker.link(String(feature.properties['Bureau du Proviseur Electrifie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du directeur equipe dEau</th>\
+                        <td>' + (feature.properties['Bureau du directeur equipe dEau'] !== null ? Autolinker.link(String(feature.properties['Bureau du directeur equipe dEau'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Proviseur equipe de Telephone</th>\
+                        <td>' + (feature.properties['Bureau du Proviseur equipe de Telephone'] !== null ? Autolinker.link(String(feature.properties['Bureau du Proviseur equipe de Telephone'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Proviseur equipe dInternet</th>\
+                        <td>' + (feature.properties['Bureau du Proviseur equipe dInternet'] !== null ? Autolinker.link(String(feature.properties['Bureau du Proviseur equipe dInternet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du  Proviseur equipe de Climatisation</th>\
+                        <td>' + (feature.properties['Bureau du  Proviseur equipe de Climatisation'] !== null ? Autolinker.link(String(feature.properties['Bureau du  Proviseur equipe de Climatisation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de classe Electriicite</th>\
+                        <td>' + (feature.properties['Salle de classe Electriicite'] !== null ? Autolinker.link(String(feature.properties['Salle de classe Electriicite'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de classe equipe dInternet</th>\
+                        <td>' + (feature.properties['Salle de classe equipe dInternet'] !== null ? Autolinker.link(String(feature.properties['Salle de classe equipe dInternet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de classe Climatisee</th>\
+                        <td>' + (feature.properties['Salle de classe Climatisee'] !== null ? Autolinker.link(String(feature.properties['Salle de classe Climatisee'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">latitude</th>\
+                        <td>' + (feature.properties['latitude'] !== null ? Autolinker.link(String(feature.properties['latitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">longitude</th>\
+                        <td>' + (feature.properties['longitude'] !== null ? Autolinker.link(String(feature.properties['longitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">_index</th>\
+                        <td>' + (feature.properties['_index'] !== null ? Autolinker.link(String(feature.properties['_index'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SecondaireGeneral_2_0() {
+            return {
+                pane: 'pane_SecondaireGeneral_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(3,255,243,1.0)',
+            }
+        }
+        map.createPane('pane_SecondaireGeneral_2');
+        map.getPane('pane_SecondaireGeneral_2').style.zIndex = 402;
+        map.getPane('pane_SecondaireGeneral_2').style['mix-blend-mode'] = 'normal';
+        var layer_SecondaireGeneral_2 = new L.geoJson(json_SecondaireGeneral_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_SecondaireGeneral_2',
+            onEachFeature: pop_SecondaireGeneral_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_SecondaireGeneral_2_0(feature));
+            },
+        });
+        var cluster_SecondaireGeneral_2 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_SecondaireGeneral_2.addLayer(layer_SecondaireGeneral_2);
+
+        bounds_group.addLayer(layer_SecondaireGeneral_2);
+        cluster_SecondaireGeneral_2.addTo(map);
+        function pop_SecondCycle_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Commune</th>\
+                        <td>' + (feature.properties['Commune'] !== null ? Autolinker.link(String(feature.properties['Commune'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Quartier</th>\
+                        <td>' + (feature.properties['Quartier'] !== null ? Autolinker.link(String(feature.properties['Quartier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Equipements Scolaire</th>\
+                        <td>' + (feature.properties['Equipements Scolaire'] !== null ? Autolinker.link(String(feature.properties['Equipements Scolaire'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Operateur Type</th>\
+                        <td>' + (feature.properties['Operateur Type'] !== null ? Autolinker.link(String(feature.properties['Operateur Type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nom Etablissement</th>\
+                        <td>' + (feature.properties['Nom Etablissement'] !== null ? Autolinker.link(String(feature.properties['Nom Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Date Creation Etablissement</th>\
+                        <td>' + (feature.properties['Date Creation Etablissement'] !== null ? Autolinker.link(String(feature.properties['Date Creation Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Date Ouverture Etablissement</th>\
+                        <td>' + (feature.properties['Date Ouverture Etablissement'] !== null ? Autolinker.link(String(feature.properties['Date Ouverture Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Academie</th>\
+                        <td>' + (feature.properties['Academie'] !== null ? Autolinker.link(String(feature.properties['Academie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CAP</th>\
+                        <td>' + (feature.properties['CAP'] !== null ? Autolinker.link(String(feature.properties['CAP'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Direction</th>\
+                        <td>' + (feature.properties['Direction'] !== null ? Autolinker.link(String(feature.properties['Direction'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Genre</th>\
+                        <td>' + (feature.properties['Genre'] !== null ? Autolinker.link(String(feature.properties['Genre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Contacts Direuteur Proviseur</th>\
+                        <td>' + (feature.properties['Contacts Direuteur Proviseur'] !== null ? Autolinker.link(String(feature.properties['Contacts Direuteur Proviseur'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Effectif Filles</th>\
+                        <td>' + (feature.properties['Effectif Filles'] !== null ? Autolinker.link(String(feature.properties['Effectif Filles'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Effectif Garçons</th>\
+                        <td>' + (feature.properties['Effectif Garçons'] !== null ? Autolinker.link(String(feature.properties['Effectif Garçons'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fonctionnaire dEtat</th>\
+                        <td>' + (feature.properties['Fonctionnaire dEtat'] !== null ? Autolinker.link(String(feature.properties['Fonctionnaire dEtat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fonctionnaires Collectivites</th>\
+                        <td>' + (feature.properties['Fonctionnaires Collectivites'] !== null ? Autolinker.link(String(feature.properties['Fonctionnaires Collectivites'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Contractuels</th>\
+                        <td>' + (feature.properties['Contractuels'] !== null ? Autolinker.link(String(feature.properties['Contractuels'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Stagiaires</th>\
+                        <td>' + (feature.properties['Stagiaires'] !== null ? Autolinker.link(String(feature.properties['Stagiaires'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Physique-Chimie</th>\
+                        <td>' + (feature.properties['Enseignants Physique-Chimie'] !== null ? Autolinker.link(String(feature.properties['Enseignants Physique-Chimie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Mathematique</th>\
+                        <td>' + (feature.properties['Enseignants Mathematique'] !== null ? Autolinker.link(String(feature.properties['Enseignants Mathematique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Histoire-Geographie</th>\
+                        <td>' + (feature.properties['Enseignants Histoire-Geographie'] !== null ? Autolinker.link(String(feature.properties['Enseignants Histoire-Geographie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Biologie</th>\
+                        <td>' + (feature.properties['Enseignants Biologie'] !== null ? Autolinker.link(String(feature.properties['Enseignants Biologie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Français</th>\
+                        <td>' + (feature.properties['Enseignants Français'] !== null ? Autolinker.link(String(feature.properties['Enseignants Français'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Anglais</th>\
+                        <td>' + (feature.properties['Enseignants Anglais'] !== null ? Autolinker.link(String(feature.properties['Enseignants Anglais'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Enseignants Education-Physique</th>\
+                        <td>' + (feature.properties['Enseignants Education-Physique'] !== null ? Autolinker.link(String(feature.properties['Enseignants Education-Physique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre_Enseignant_DessinTechnique</th>\
+                        <td>' + (feature.properties['Nombre_Enseignant_DessinTechnique'] !== null ? Autolinker.link(String(feature.properties['Nombre_Enseignant_DessinTechnique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre-Classe_Etablissement</th>\
+                        <td>' + (feature.properties['Nombre-Classe_Etablissement'] !== null ? Autolinker.link(String(feature.properties['Nombre-Classe_Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Bon etat</th>\
+                        <td>' + (feature.properties['Infrastructure Bon etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Bon etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Degrade</th>\
+                        <td>' + (feature.properties['Infrastructure Degrade'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Degrade'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Mauvais etat</th>\
+                        <td>' + (feature.properties['Infrastructure Mauvais etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Mauvais etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure en Tole</th>\
+                        <td>' + (feature.properties['Infrastructure en Tole'] !== null ? Autolinker.link(String(feature.properties['Infrastructure en Tole'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure en Dalle</th>\
+                        <td>' + (feature.properties['Infrastructure en Dalle'] !== null ? Autolinker.link(String(feature.properties['Infrastructure en Dalle'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Proprietaire Foncier</th>\
+                        <td>' + (feature.properties['Proprietaire Foncier'] !== null ? Autolinker.link(String(feature.properties['Proprietaire Foncier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Location</th>\
+                        <td>' + (feature.properties['Location'] !== null ? Autolinker.link(String(feature.properties['Location'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Mur  cloture</th>\
+                        <td>' + (feature.properties['Mur  cloture'] !== null ? Autolinker.link(String(feature.properties['Mur  cloture'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Presence du Drapeau</th>\
+                        <td>' + (feature.properties['Presence du Drapeau'] !== null ? Autolinker.link(String(feature.properties['Presence du Drapeau'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Espace Vert</th>\
+                        <td>' + (feature.properties['Espace Vert'] !== null ? Autolinker.link(String(feature.properties['Espace Vert'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Plan du bâtiment</th>\
+                        <td>' + (feature.properties['Plan du bâtiment'] !== null ? Autolinker.link(String(feature.properties['Plan du bâtiment'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure equipe Forage</th>\
+                        <td>' + (feature.properties['Infrastructure equipe Forage'] !== null ? Autolinker.link(String(feature.properties['Infrastructure equipe Forage'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cantine Scolaire</th>\
+                        <td>' + (feature.properties['Cantine Scolaire'] !== null ? Autolinker.link(String(feature.properties['Cantine Scolaire'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infirmerie</th>\
+                        <td>' + (feature.properties['Infirmerie'] !== null ? Autolinker.link(String(feature.properties['Infirmerie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Toilettes</th>\
+                        <td>' + (feature.properties['Toilettes'] !== null ? Autolinker.link(String(feature.properties['Toilettes'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Vehicule de Services</th>\
+                        <td>' + (feature.properties['Vehicule de Services'] !== null ? Autolinker.link(String(feature.properties['Vehicule de Services'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Motocycliste de Service</th>\
+                        <td>' + (feature.properties['Motocycliste de Service'] !== null ? Autolinker.link(String(feature.properties['Motocycliste de Service'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">lenvironnement de l’infrastructure Propre</th>\
+                        <td>' + (feature.properties['lenvironnement de l’infrastructure Propre'] !== null ? Autolinker.link(String(feature.properties['lenvironnement de l’infrastructure Propre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Abonner A un GIE dassainissement</th>\
+                        <td>' + (feature.properties['Abonner A un GIE dassainissement'] !== null ? Autolinker.link(String(feature.properties['Abonner A un GIE dassainissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A proximite dun depot dOrdure autorise</th>\
+                        <td>' + (feature.properties['A proximite dun depot dOrdure autorise'] !== null ? Autolinker.link(String(feature.properties['A proximite dun depot dOrdure autorise'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A proximite dun depot dordure anarchique</th>\
+                        <td>' + (feature.properties['A proximite dun depot dordure anarchique'] !== null ? Autolinker.link(String(feature.properties['A proximite dun depot dordure anarchique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A cote dun marche</th>\
+                        <td>' + (feature.properties['A cote dun marche'] !== null ? Autolinker.link(String(feature.properties['A cote dun marche'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A cote dune usine</th>\
+                        <td>' + (feature.properties['A cote dune usine'] !== null ? Autolinker.link(String(feature.properties['A cote dune usine'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Inondation</th>\
+                        <td>' + (feature.properties['Inondation'] !== null ? Autolinker.link(String(feature.properties['Inondation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Directeur Electrifie</th>\
+                        <td>' + (feature.properties['Bureau du Directeur Electrifie'] !== null ? Autolinker.link(String(feature.properties['Bureau du Directeur Electrifie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Directeur equipe dEau</th>\
+                        <td>' + (feature.properties['Bureau du Directeur equipe dEau'] !== null ? Autolinker.link(String(feature.properties['Bureau du Directeur equipe dEau'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Directeur Telephone</th>\
+                        <td>' + (feature.properties['Bureau du Directeur Telephone'] !== null ? Autolinker.link(String(feature.properties['Bureau du Directeur Telephone'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Directeur dInternet</th>\
+                        <td>' + (feature.properties['Bureau du Directeur dInternet'] !== null ? Autolinker.link(String(feature.properties['Bureau du Directeur dInternet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Directeur equipe de Climatisation</th>\
+                        <td>' + (feature.properties['Bureau du Directeur equipe de Climatisation'] !== null ? Autolinker.link(String(feature.properties['Bureau du Directeur equipe de Climatisation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de ClasseElectrifie</th>\
+                        <td>' + (feature.properties['Salle de ClasseElectrifie'] !== null ? Autolinker.link(String(feature.properties['Salle de ClasseElectrifie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de Classe dInternet</th>\
+                        <td>' + (feature.properties['Salle de Classe dInternet'] !== null ? Autolinker.link(String(feature.properties['Salle de Classe dInternet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de Classe Climatisee</th>\
+                        <td>' + (feature.properties['Salle de Classe Climatisee'] !== null ? Autolinker.link(String(feature.properties['Salle de Classe Climatisee'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">latitude</th>\
+                        <td>' + (feature.properties['latitude'] !== null ? Autolinker.link(String(feature.properties['latitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">longitude</th>\
+                        <td>' + (feature.properties['longitude'] !== null ? Autolinker.link(String(feature.properties['longitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">_index</th>\
+                        <td>' + (feature.properties['_index'] !== null ? Autolinker.link(String(feature.properties['_index'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SecondCycle_3_0() {
+            return {
+                pane: 'pane_SecondCycle_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(6,63,249,1.0)',
+            }
+        }
+        map.createPane('pane_SecondCycle_3');
+        map.getPane('pane_SecondCycle_3').style.zIndex = 403;
+        map.getPane('pane_SecondCycle_3').style['mix-blend-mode'] = 'normal';
+        var layer_SecondCycle_3 = new L.geoJson(json_SecondCycle_3, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_SecondCycle_3',
+            onEachFeature: pop_SecondCycle_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_SecondCycle_3_0(feature));
+            },
+        });
+        var cluster_SecondCycle_3 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_SecondCycle_3.addLayer(layer_SecondCycle_3);
+
+        bounds_group.addLayer(layer_SecondCycle_3);
+        cluster_SecondCycle_3.addTo(map);
+        function pop_1erCycle_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Commune</th>\
+                        <td>' + (feature.properties['Commune'] !== null ? Autolinker.link(String(feature.properties['Commune'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Quartier</th>\
+                        <td>' + (feature.properties['Quartier'] !== null ? Autolinker.link(String(feature.properties['Quartier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Equipements Scolaire</th>\
+                        <td>' + (feature.properties['Equipements Scolaire'] !== null ? Autolinker.link(String(feature.properties['Equipements Scolaire'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Operateur Type</th>\
+                        <td>' + (feature.properties['Operateur Type'] !== null ? Autolinker.link(String(feature.properties['Operateur Type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nom Etablissement</th>\
+                        <td>' + (feature.properties['Nom Etablissement'] !== null ? Autolinker.link(String(feature.properties['Nom Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Date Creation Etablissement</th>\
+                        <td>' + (feature.properties['Date Creation Etablissement'] !== null ? Autolinker.link(String(feature.properties['Date Creation Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Date Ouverture Etablissement</th>\
+                        <td>' + (feature.properties['Date Ouverture Etablissement'] !== null ? Autolinker.link(String(feature.properties['Date Ouverture Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Academie</th>\
+                        <td>' + (feature.properties['Academie'] !== null ? Autolinker.link(String(feature.properties['Academie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CAP</th>\
+                        <td>' + (feature.properties['CAP'] !== null ? Autolinker.link(String(feature.properties['CAP'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Directeur</th>\
+                        <td>' + (feature.properties['Directeur'] !== null ? Autolinker.link(String(feature.properties['Directeur'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Genre</th>\
+                        <td>' + (feature.properties['Genre'] !== null ? Autolinker.link(String(feature.properties['Genre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Contacts Directeur</th>\
+                        <td>' + (feature.properties['Contacts Directeur'] !== null ? Autolinker.link(String(feature.properties['Contacts Directeur'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Effectif Filles</th>\
+                        <td>' + (feature.properties['Effectif Filles'] !== null ? Autolinker.link(String(feature.properties['Effectif Filles'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Effectif Garçons</th>\
+                        <td>' + (feature.properties['Effectif Garçons'] !== null ? Autolinker.link(String(feature.properties['Effectif Garçons'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fonctionnaire dEtat</th>\
+                        <td>' + (feature.properties['Fonctionnaire dEtat'] !== null ? Autolinker.link(String(feature.properties['Fonctionnaire dEtat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fonctionnaire Des Collectivites</th>\
+                        <td>' + (feature.properties['Fonctionnaire Des Collectivites'] !== null ? Autolinker.link(String(feature.properties['Fonctionnaire Des Collectivites'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Contractuels</th>\
+                        <td>' + (feature.properties['Contractuels'] !== null ? Autolinker.link(String(feature.properties['Contractuels'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Stagiaires</th>\
+                        <td>' + (feature.properties['Stagiaires'] !== null ? Autolinker.link(String(feature.properties['Stagiaires'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Effectif Enseignants</th>\
+                        <td>' + (feature.properties['Effectif Enseignants'] !== null ? Autolinker.link(String(feature.properties['Effectif Enseignants'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de Classes</th>\
+                        <td>' + (feature.properties['Nombre de Classes'] !== null ? Autolinker.link(String(feature.properties['Nombre de Classes'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Bon etat</th>\
+                        <td>' + (feature.properties['Infrastructure Bon etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Bon etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure etat degradre</th>\
+                        <td>' + (feature.properties['Infrastructure etat degradre'] !== null ? Autolinker.link(String(feature.properties['Infrastructure etat degradre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Mauvais etat</th>\
+                        <td>' + (feature.properties['Infrastructure Mauvais etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Mauvais etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure en Tole</th>\
+                        <td>' + (feature.properties['Infrastructure en Tole'] !== null ? Autolinker.link(String(feature.properties['Infrastructure en Tole'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure en Dalle</th>\
+                        <td>' + (feature.properties['Infrastructure en Dalle'] !== null ? Autolinker.link(String(feature.properties['Infrastructure en Dalle'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Proprietaire Foncier</th>\
+                        <td>' + (feature.properties['Proprietaire Foncier'] !== null ? Autolinker.link(String(feature.properties['Proprietaire Foncier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">En Location</th>\
+                        <td>' + (feature.properties['En Location'] !== null ? Autolinker.link(String(feature.properties['En Location'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Mur cloture</th>\
+                        <td>' + (feature.properties['Mur cloture'] !== null ? Autolinker.link(String(feature.properties['Mur cloture'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Presence du Drapeau</th>\
+                        <td>' + (feature.properties['Presence du Drapeau'] !== null ? Autolinker.link(String(feature.properties['Presence du Drapeau'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Espace Vert</th>\
+                        <td>' + (feature.properties['Espace Vert'] !== null ? Autolinker.link(String(feature.properties['Espace Vert'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Plan du bâtiment</th>\
+                        <td>' + (feature.properties['Plan du bâtiment'] !== null ? Autolinker.link(String(feature.properties['Plan du bâtiment'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Equipe de Forage</th>\
+                        <td>' + (feature.properties['Equipe de Forage'] !== null ? Autolinker.link(String(feature.properties['Equipe de Forage'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cantine Scolaire</th>\
+                        <td>' + (feature.properties['Cantine Scolaire'] !== null ? Autolinker.link(String(feature.properties['Cantine Scolaire'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infirmerie</th>\
+                        <td>' + (feature.properties['Infirmerie'] !== null ? Autolinker.link(String(feature.properties['Infirmerie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Toilettes</th>\
+                        <td>' + (feature.properties['Toilettes'] !== null ? Autolinker.link(String(feature.properties['Toilettes'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Vehicule de Services</th>\
+                        <td>' + (feature.properties['Vehicule de Services'] !== null ? Autolinker.link(String(feature.properties['Vehicule de Services'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Motocycliste de Service</th>\
+                        <td>' + (feature.properties['Motocycliste de Service'] !== null ? Autolinker.link(String(feature.properties['Motocycliste de Service'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Etat de lenvironnement de lInfrastructure Propre</th>\
+                        <td>' + (feature.properties['Etat de lenvironnement de lInfrastructure Propre'] !== null ? Autolinker.link(String(feature.properties['Etat de lenvironnement de lInfrastructure Propre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Abonner à un GIE d’assainissement</th>\
+                        <td>' + (feature.properties['Abonner à un GIE d’assainissement'] !== null ? Autolinker.link(String(feature.properties['Abonner à un GIE d’assainissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A proximite d’un depôt d’ordure autorise</th>\
+                        <td>' + (feature.properties['A proximite d’un depôt d’ordure autorise'] !== null ? Autolinker.link(String(feature.properties['A proximite d’un depôt d’ordure autorise'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A proximite d’un depôt d’ordure anarchique</th>\
+                        <td>' + (feature.properties['A proximite d’un depôt d’ordure anarchique'] !== null ? Autolinker.link(String(feature.properties['A proximite d’un depôt d’ordure anarchique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A cote dun marche</th>\
+                        <td>' + (feature.properties['A cote dun marche'] !== null ? Autolinker.link(String(feature.properties['A cote dun marche'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A cote d’une usine</th>\
+                        <td>' + (feature.properties['A cote d’une usine'] !== null ? Autolinker.link(String(feature.properties['A cote d’une usine'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Etat de l’environnement de l’infrastructure /Autres à preciser</th>\
+                        <td>' + (feature.properties['Etat de l’environnement de l’infrastructure /Autres à preciser'] !== null ? Autolinker.link(String(feature.properties['Etat de l’environnement de l’infrastructure /Autres à preciser'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Inondation</th>\
+                        <td>' + (feature.properties['Inondation'] !== null ? Autolinker.link(String(feature.properties['Inondation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du directeur  Electricfie</th>\
+                        <td>' + (feature.properties['Bureau du directeur  Electricfie'] !== null ? Autolinker.link(String(feature.properties['Bureau du directeur  Electricfie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du directeur eqipe dEau</th>\
+                        <td>' + (feature.properties['Bureau du directeur eqipe dEau'] !== null ? Autolinker.link(String(feature.properties['Bureau du directeur eqipe dEau'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du directeur equipe de Telephone</th>\
+                        <td>' + (feature.properties['Bureau du directeur equipe de Telephone'] !== null ? Autolinker.link(String(feature.properties['Bureau du directeur equipe de Telephone'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du directeur equipe dInternet</th>\
+                        <td>' + (feature.properties['Bureau du directeur equipe dInternet'] !== null ? Autolinker.link(String(feature.properties['Bureau du directeur equipe dInternet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du directeur equipe de Climatisation</th>\
+                        <td>' + (feature.properties['Bureau du directeur equipe de Climatisation'] !== null ? Autolinker.link(String(feature.properties['Bureau du directeur equipe de Climatisation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de classe Electrifie</th>\
+                        <td>' + (feature.properties['Salle de classe Electrifie'] !== null ? Autolinker.link(String(feature.properties['Salle de classe Electrifie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de classe equipe dInternet</th>\
+                        <td>' + (feature.properties['Salle de classe equipe dInternet'] !== null ? Autolinker.link(String(feature.properties['Salle de classe equipe dInternet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de classe equipe de Climatisation</th>\
+                        <td>' + (feature.properties['Salle de classe equipe de Climatisation'] !== null ? Autolinker.link(String(feature.properties['Salle de classe equipe de Climatisation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">latitude</th>\
+                        <td>' + (feature.properties['latitude'] !== null ? Autolinker.link(String(feature.properties['latitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">longitude</th>\
+                        <td>' + (feature.properties['longitude'] !== null ? Autolinker.link(String(feature.properties['longitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">_index</th>\
+                        <td>' + (feature.properties['_index'] !== null ? Autolinker.link(String(feature.properties['_index'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_1erCycle_4_0() {
+            return {
+                pane: 'pane_1erCycle_4',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(225,232,115,1.0)',
+            }
+        }
+        map.createPane('pane_1erCycle_4');
+        map.getPane('pane_1erCycle_4').style.zIndex = 404;
+        map.getPane('pane_1erCycle_4').style['mix-blend-mode'] = 'normal';
+        var layer_1erCycle_4 = new L.geoJson(json_1erCycle_4, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_1erCycle_4',
+            onEachFeature: pop_1erCycle_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_1erCycle_4_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_1erCycle_4);
+        map.addLayer(layer_1erCycle_4);
+        function pop_Prescolaire_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Commune</th>\
+                        <td>' + (feature.properties['Commune'] !== null ? Autolinker.link(String(feature.properties['Commune'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Quartier</th>\
+                        <td>' + (feature.properties['Quartier'] !== null ? Autolinker.link(String(feature.properties['Quartier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Equipements Scolaire</th>\
+                        <td>' + (feature.properties['Equipements Scolaire'] !== null ? Autolinker.link(String(feature.properties['Equipements Scolaire'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Operateur_Type</th>\
+                        <td>' + (feature.properties['Operateur_Type'] !== null ? Autolinker.link(String(feature.properties['Operateur_Type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nom Etablissement</th>\
+                        <td>' + (feature.properties['Nom Etablissement'] !== null ? Autolinker.link(String(feature.properties['Nom Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Date Creation Etablissement</th>\
+                        <td>' + (feature.properties['Date Creation Etablissement'] !== null ? Autolinker.link(String(feature.properties['Date Creation Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Date Ouverture Etablissement</th>\
+                        <td>' + (feature.properties['Date Ouverture Etablissement'] !== null ? Autolinker.link(String(feature.properties['Date Ouverture Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Academie</th>\
+                        <td>' + (feature.properties['Academie'] !== null ? Autolinker.link(String(feature.properties['Academie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CAP</th>\
+                        <td>' + (feature.properties['CAP'] !== null ? Autolinker.link(String(feature.properties['CAP'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Directeur</th>\
+                        <td>' + (feature.properties['Directeur'] !== null ? Autolinker.link(String(feature.properties['Directeur'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Genre</th>\
+                        <td>' + (feature.properties['Genre'] !== null ? Autolinker.link(String(feature.properties['Genre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Direuteur</th>\
+                        <td>' + (feature.properties['Direuteur'] !== null ? Autolinker.link(String(feature.properties['Direuteur'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Effectif Filles</th>\
+                        <td>' + (feature.properties['Effectif Filles'] !== null ? Autolinker.link(String(feature.properties['Effectif Filles'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Effectif Garçons</th>\
+                        <td>' + (feature.properties['Effectif Garçons'] !== null ? Autolinker.link(String(feature.properties['Effectif Garçons'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fonctionnaire dEtat</th>\
+                        <td>' + (feature.properties['Fonctionnaire dEtat'] !== null ? Autolinker.link(String(feature.properties['Fonctionnaire dEtat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fonctionnaire Collectivites</th>\
+                        <td>' + (feature.properties['Fonctionnaire Collectivites'] !== null ? Autolinker.link(String(feature.properties['Fonctionnaire Collectivites'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Contractuels</th>\
+                        <td>' + (feature.properties['Contractuels'] !== null ? Autolinker.link(String(feature.properties['Contractuels'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Stagiaires</th>\
+                        <td>' + (feature.properties['Stagiaires'] !== null ? Autolinker.link(String(feature.properties['Stagiaires'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Moniteur</th>\
+                        <td>' + (feature.properties['Moniteur'] !== null ? Autolinker.link(String(feature.properties['Moniteur'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre-Classe_Etablissement</th>\
+                        <td>' + (feature.properties['Nombre-Classe_Etablissement'] !== null ? Autolinker.link(String(feature.properties['Nombre-Classe_Etablissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Bon etat</th>\
+                        <td>' + (feature.properties['Infrastructure Bon etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Bon etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Degrade</th>\
+                        <td>' + (feature.properties['Infrastructure Degrade'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Degrade'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Mauvaise etat</th>\
+                        <td>' + (feature.properties['Infrastructure Mauvaise etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Mauvaise etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure en Tole</th>\
+                        <td>' + (feature.properties['Infrastructure en Tole'] !== null ? Autolinker.link(String(feature.properties['Infrastructure en Tole'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure en Dalle</th>\
+                        <td>' + (feature.properties['Infrastructure en Dalle'] !== null ? Autolinker.link(String(feature.properties['Infrastructure en Dalle'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Proprietaire Foncier</th>\
+                        <td>' + (feature.properties['Proprietaire Foncier'] !== null ? Autolinker.link(String(feature.properties['Proprietaire Foncier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Location</th>\
+                        <td>' + (feature.properties['Location'] !== null ? Autolinker.link(String(feature.properties['Location'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Mur cloture</th>\
+                        <td>' + (feature.properties['Mur cloture'] !== null ? Autolinker.link(String(feature.properties['Mur cloture'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Presence du Drapeau</th>\
+                        <td>' + (feature.properties['Presence du Drapeau'] !== null ? Autolinker.link(String(feature.properties['Presence du Drapeau'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Espace Vert</th>\
+                        <td>' + (feature.properties['Espace Vert'] !== null ? Autolinker.link(String(feature.properties['Espace Vert'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Plan du bâtiment</th>\
+                        <td>' + (feature.properties['Plan du bâtiment'] !== null ? Autolinker.link(String(feature.properties['Plan du bâtiment'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure equipe de Forage</th>\
+                        <td>' + (feature.properties['Infrastructure equipe de Forage'] !== null ? Autolinker.link(String(feature.properties['Infrastructure equipe de Forage'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cantine Scolaire</th>\
+                        <td>' + (feature.properties['Cantine Scolaire'] !== null ? Autolinker.link(String(feature.properties['Cantine Scolaire'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infirmerie</th>\
+                        <td>' + (feature.properties['Infirmerie'] !== null ? Autolinker.link(String(feature.properties['Infirmerie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Toilettes</th>\
+                        <td>' + (feature.properties['Toilettes'] !== null ? Autolinker.link(String(feature.properties['Toilettes'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Vehicule Services</th>\
+                        <td>' + (feature.properties['Vehicule Services'] !== null ? Autolinker.link(String(feature.properties['Vehicule Services'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Motocycliste de Service</th>\
+                        <td>' + (feature.properties['Motocycliste de Service'] !== null ? Autolinker.link(String(feature.properties['Motocycliste de Service'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">lenvironnement de linfrastructure Propre</th>\
+                        <td>' + (feature.properties['lenvironnement de linfrastructure Propre'] !== null ? Autolinker.link(String(feature.properties['lenvironnement de linfrastructure Propre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Abonner à un GIE dassainissement</th>\
+                        <td>' + (feature.properties['Abonner à un GIE dassainissement'] !== null ? Autolinker.link(String(feature.properties['Abonner à un GIE dassainissement'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A proximite dun depot d’ordure autorise</th>\
+                        <td>' + (feature.properties['A proximite dun depot d’ordure autorise'] !== null ? Autolinker.link(String(feature.properties['A proximite dun depot d’ordure autorise'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A proximite dun depôt dordure anarchique</th>\
+                        <td>' + (feature.properties['A proximite dun depôt dordure anarchique'] !== null ? Autolinker.link(String(feature.properties['A proximite dun depôt dordure anarchique'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A cote dun marche</th>\
+                        <td>' + (feature.properties['A cote dun marche'] !== null ? Autolinker.link(String(feature.properties['A cote dun marche'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A cote dune usine</th>\
+                        <td>' + (feature.properties['A cote dune usine'] !== null ? Autolinker.link(String(feature.properties['A cote dune usine'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Inondation</th>\
+                        <td>' + (feature.properties['Inondation'] !== null ? Autolinker.link(String(feature.properties['Inondation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Directeur Electrifie</th>\
+                        <td>' + (feature.properties['Bureau du Directeur Electrifie'] !== null ? Autolinker.link(String(feature.properties['Bureau du Directeur Electrifie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Directeur equipe dEau</th>\
+                        <td>' + (feature.properties['Bureau du Directeur equipe dEau'] !== null ? Autolinker.link(String(feature.properties['Bureau du Directeur equipe dEau'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Directeur equipe de Telephone</th>\
+                        <td>' + (feature.properties['Bureau du Directeur equipe de Telephone'] !== null ? Autolinker.link(String(feature.properties['Bureau du Directeur equipe de Telephone'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Directeur equipe dInternet</th>\
+                        <td>' + (feature.properties['Bureau du Directeur equipe dInternet'] !== null ? Autolinker.link(String(feature.properties['Bureau du Directeur equipe dInternet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau du Directeur equipe de Climatisation</th>\
+                        <td>' + (feature.properties['Bureau du Directeur equipe de Climatisation'] !== null ? Autolinker.link(String(feature.properties['Bureau du Directeur equipe de Climatisation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de Classe Electrifie</th>\
+                        <td>' + (feature.properties['Salle de Classe Electrifie'] !== null ? Autolinker.link(String(feature.properties['Salle de Classe Electrifie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de Classe dInternet</th>\
+                        <td>' + (feature.properties['Salle de Classe dInternet'] !== null ? Autolinker.link(String(feature.properties['Salle de Classe dInternet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de Classe equipe de Climatisation</th>\
+                        <td>' + (feature.properties['Salle de Classe equipe de Climatisation'] !== null ? Autolinker.link(String(feature.properties['Salle de Classe equipe de Climatisation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">latitude</th>\
+                        <td>' + (feature.properties['latitude'] !== null ? Autolinker.link(String(feature.properties['latitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">longitude</th>\
+                        <td>' + (feature.properties['longitude'] !== null ? Autolinker.link(String(feature.properties['longitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">_index</th>\
+                        <td>' + (feature.properties['_index'] !== null ? Autolinker.link(String(feature.properties['_index'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Prescolaire_5_0() {
+            return {
+                pane: 'pane_Prescolaire_5',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(30,30,30,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,187,49,1.0)',
+            }
+        }
+        map.createPane('pane_Prescolaire_5');
+        map.getPane('pane_Prescolaire_5').style.zIndex = 405;
+        map.getPane('pane_Prescolaire_5').style['mix-blend-mode'] = 'normal';
+        var layer_Prescolaire_5 = new L.geoJson(json_Prescolaire_5, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Prescolaire_5',
+            onEachFeature: pop_Prescolaire_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Prescolaire_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Prescolaire_5);
+        map.addLayer(layer_Prescolaire_5);
+        function pop_CentredeSante_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">District Sanitaire</th>\
+                        <td>' + (feature.properties['District_s'] !== null ? Autolinker.link(String(feature.properties['District_s'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Aire de sante</th>\
+                        <td>' + (feature.properties['Aire de sa'] !== null ? Autolinker.link(String(feature.properties['Aire de sa'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Quartier</th>\
+                        <td>' + (feature.properties['Quartier'] !== null ? Autolinker.link(String(feature.properties['Quartier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Commune</th>\
+                        <td>' + (feature.properties['Commune'] !== null ? Autolinker.link(String(feature.properties['Commune'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nom Chef Centre Medecin DTC</th>\
+                        <td>' + (feature.properties['Nom Chef C'] !== null ? Autolinker.link(String(feature.properties['Nom Chef C'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Age Chef Centre Medecin DTC</th>\
+                        <td>' + (feature.properties['Age Chef c'] !== null ? Autolinker.link(String(feature.properties['Age Chef c'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Medecin Generaliste</th>\
+                        <td>' + (feature.properties['Medecins G'] !== null ? Autolinker.link(String(feature.properties['Medecins G'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Medecin Specialiste</th>\
+                        <td>' + (feature.properties['Medecins S'] !== null ? Autolinker.link(String(feature.properties['Medecins S'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infirmier Etat</th>\
+                        <td>' + (feature.properties['Infirmier'] !== null ? Autolinker.link(String(feature.properties['Infirmier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infirmier </th>\
+                        <td>' + (feature.properties['Infirmie_1'] !== null ? Autolinker.link(String(feature.properties['Infirmie_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Sages femme</th>\
+                        <td>' + (feature.properties['Sages-Femm'] !== null ? Autolinker.link(String(feature.properties['Sages-Femm'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Laboratins</th>\
+                        <td>' + (feature.properties['Laboratins'] !== null ? Autolinker.link(String(feature.properties['Laboratins'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Gerants Pharmacien</th>\
+                        <td>' + (feature.properties['Gerants Ph'] !== null ? Autolinker.link(String(feature.properties['Gerants Ph'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Dentistes</th>\
+                        <td>' + (feature.properties['Dentistes'] !== null ? Autolinker.link(String(feature.properties['Dentistes'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Matrone</th>\
+                        <td>' + (feature.properties['Matrone'] !== null ? Autolinker.link(String(feature.properties['Matrone'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Aide soignant</th>\
+                        <td>' + (feature.properties['Aide-soign'] !== null ? Autolinker.link(String(feature.properties['Aide-soign'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Secretaire</th>\
+                        <td>' + (feature.properties['Secretaire'] !== null ? Autolinker.link(String(feature.properties['Secretaire'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Chaufeurs</th>\
+                        <td>' + (feature.properties['Chauffeurs'] !== null ? Autolinker.link(String(feature.properties['Chauffeurs'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Gardiens</th>\
+                        <td>' + (feature.properties['Gardiens'] !== null ? Autolinker.link(String(feature.properties['Gardiens'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Manoeuvre</th>\
+                        <td>' + (feature.properties['Man�uvre'] !== null ? Autolinker.link(String(feature.properties['Man�uvre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Homme Fonct Etat </th>\
+                        <td>' + (feature.properties['Hommes Fon'] !== null ? Autolinker.link(String(feature.properties['Hommes Fon'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Femme Fonct Etat</th>\
+                        <td>' + (feature.properties['Femme Fonc'] !== null ? Autolinker.link(String(feature.properties['Femme Fonc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Homme Fonct Collectivites</th>\
+                        <td>' + (feature.properties['Hommes F_1'] !== null ? Autolinker.link(String(feature.properties['Hommes F_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Femme Fonct Collectivites</th>\
+                        <td>' + (feature.properties['Femmes Fon'] !== null ? Autolinker.link(String(feature.properties['Femmes Fon'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Homme Contractuels</th>\
+                        <td>' + (feature.properties['Hommes Con'] !== null ? Autolinker.link(String(feature.properties['Hommes Con'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Femmes Contractuelles</th>\
+                        <td>' + (feature.properties['Femmes Con'] !== null ? Autolinker.link(String(feature.properties['Femmes Con'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle Accueil Electrifie</th>\
+                        <td>' + (feature.properties['Salle Accu'] !== null ? Autolinker.link(String(feature.properties['Salle Accu'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle Accueil Equipe en eau</th>\
+                        <td>' + (feature.properties['Salle Ac_1'] !== null ? Autolinker.link(String(feature.properties['Salle Ac_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle Accueil Equipe de Telephone</th>\
+                        <td>' + (feature.properties['Salle Ac_2'] !== null ? Autolinker.link(String(feature.properties['Salle Ac_2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle Accueil Climatise</th>\
+                        <td>' + (feature.properties['Salle Ac_3'] !== null ? Autolinker.link(String(feature.properties['Salle Ac_3'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle Accueil Equipe Internet</th>\
+                        <td>' + (feature.properties['Salle Ac_4'] !== null ? Autolinker.link(String(feature.properties['Salle Ac_4'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle Accueil Equipe de saisie</th>\
+                        <td>' + (feature.properties['Salle Ac_5'] !== null ? Autolinker.link(String(feature.properties['Salle Ac_5'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau electrifie</th>\
+                        <td>' + (feature.properties['Bureaux El'] !== null ? Autolinker.link(String(feature.properties['Bureaux El'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau equipe eau</th>\
+                        <td>' + (feature.properties['Bureaux eq'] !== null ? Autolinker.link(String(feature.properties['Bureaux eq'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau equipe de telephone</th>\
+                        <td>' + (feature.properties['Bureaux _1'] !== null ? Autolinker.link(String(feature.properties['Bureaux _1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau climatise</th>\
+                        <td>' + (feature.properties['Bureaux Cl'] !== null ? Autolinker.link(String(feature.properties['Bureaux Cl'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau equipe Internet</th>\
+                        <td>' + (feature.properties['Bureaux _2'] !== null ? Autolinker.link(String(feature.properties['Bureaux _2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau equipe de table</th>\
+                        <td>' + (feature.properties['Bureaux _3'] !== null ? Autolinker.link(String(feature.properties['Bureaux _3'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bureau equipe Armoir</th>\
+                        <td>' + (feature.properties['Bureaux _4'] !== null ? Autolinker.link(String(feature.properties['Bureaux _4'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de soins electrifiees</th>\
+                        <td>' + (feature.properties['Salles de'] !== null ? Autolinker.link(String(feature.properties['Salles de'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de soins equipe eau</th>\
+                        <td>' + (feature.properties['Salles d_1'] !== null ? Autolinker.link(String(feature.properties['Salles d_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de soins climatisee</th>\
+                        <td>' + (feature.properties['Sallesde S'] !== null ? Autolinker.link(String(feature.properties['Sallesde S'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de soins equipe de table</th>\
+                        <td>' + (feature.properties['Salles d_2'] !== null ? Autolinker.link(String(feature.properties['Salles d_2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de soins equipe Armoir</th>\
+                        <td>' + (feature.properties['Salles d_3'] !== null ? Autolinker.link(String(feature.properties['Salles d_3'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de soins equipe Refrigerateur</th>\
+                        <td>' + (feature.properties['Salles d_4'] !== null ? Autolinker.link(String(feature.properties['Salles d_4'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de soins equipee Lit</th>\
+                        <td>' + (feature.properties['Salles d_5'] !== null ? Autolinker.link(String(feature.properties['Salles d_5'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle de soins equipee Chaise</th>\
+                        <td>' + (feature.properties['Salles Soi'] !== null ? Autolinker.link(String(feature.properties['Salles Soi'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle hospitalisation Electrifiee</th>\
+                        <td>' + (feature.properties['Salles hos'] !== null ? Autolinker.link(String(feature.properties['Salles hos'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle hospitalisation Climatisee</th>\
+                        <td>' + (feature.properties['Salles h_1'] !== null ? Autolinker.link(String(feature.properties['Salles h_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle hospitalisation equipe de Lit </th>\
+                        <td>' + (feature.properties['Salles h_2'] !== null ? Autolinker.link(String(feature.properties['Salles h_2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle hospitalisation equipe de Chaise </th>\
+                        <td>' + (feature.properties['Salles h_3'] !== null ? Autolinker.link(String(feature.properties['Salles h_3'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle hospitalisation OUI NON</th>\
+                        <td>' + (feature.properties['Salle_hosp'] !== null ? Autolinker.link(String(feature.properties['Salle_hosp'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nbre Lit Salle hospitalisation</th>\
+                        <td>' + (feature.properties['Nombre Lit'] !== null ? Autolinker.link(String(feature.properties['Nombre Lit'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Pharmacie Electrifiee</th>\
+                        <td>' + (feature.properties['Pharmacie'] !== null ? Autolinker.link(String(feature.properties['Pharmacie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Pharmacie Climatisee</th>\
+                        <td>' + (feature.properties['Pharmaci_1'] !== null ? Autolinker.link(String(feature.properties['Pharmaci_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Pharmacie equipe de refrigerateur</th>\
+                        <td>' + (feature.properties['Pharmaci_2'] !== null ? Autolinker.link(String(feature.properties['Pharmaci_2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Pas de pharmacie</th>\
+                        <td>' + (feature.properties['Pas de Pha'] !== null ? Autolinker.link(String(feature.properties['Pas de Pha'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle accouchement electrifiee</th>\
+                        <td>' + (feature.properties['Salles Acc'] !== null ? Autolinker.link(String(feature.properties['Salles Acc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle accouchement equipee Eau</th>\
+                        <td>' + (feature.properties['Salles A_1'] !== null ? Autolinker.link(String(feature.properties['Salles A_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle accouchement equipee Lit</th>\
+                        <td>' + (feature.properties['Salles A_2'] !== null ? Autolinker.link(String(feature.properties['Salles A_2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle accouchement Climatisee</th>\
+                        <td>' + (feature.properties['Salles A_3'] !== null ? Autolinker.link(String(feature.properties['Salles A_3'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Salle accouchement equipee Table</th>\
+                        <td>' + (feature.properties['Salles A_4'] !== null ? Autolinker.link(String(feature.properties['Salles A_4'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Maternite electrifiee</th>\
+                        <td>' + (feature.properties['Maternite'] !== null ? Autolinker.link(String(feature.properties['Maternite'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Maternite equipe de lit</th>\
+                        <td>' + (feature.properties['Maternit_1'] !== null ? Autolinker.link(String(feature.properties['Maternit_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Maternite Climatisee</th>\
+                        <td>' + (feature.properties['Maternit_2'] !== null ? Autolinker.link(String(feature.properties['Maternit_2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Maternite equipe de chaise</th>\
+                        <td>' + (feature.properties['Maternit_3'] !== null ? Autolinker.link(String(feature.properties['Maternit_3'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bloc ou Salle Operation electrifiee</th>\
+                        <td>' + (feature.properties['Bloc opera'] !== null ? Autolinker.link(String(feature.properties['Bloc opera'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bloc ou Salle Operation equipee de lit</th>\
+                        <td>' + (feature.properties['Bloc ope_1'] !== null ? Autolinker.link(String(feature.properties['Bloc ope_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bloc ou Salle Operation Climatisee</th>\
+                        <td>' + (feature.properties['Bloc ope_2'] !== null ? Autolinker.link(String(feature.properties['Bloc ope_2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bloc ou Salle Operation equipe de Table</th>\
+                        <td>' + (feature.properties['Bloc ope_3'] !== null ? Autolinker.link(String(feature.properties['Bloc ope_3'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bloc ou Salle Operation equipe Eau</th>\
+                        <td>' + (feature.properties['Bloc ope_4'] !== null ? Autolinker.link(String(feature.properties['Bloc ope_4'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Pas de Bloc ou salle Operation</th>\
+                        <td>' + (feature.properties['Pas de Blo'] !== null ? Autolinker.link(String(feature.properties['Pas de Blo'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Morgue</th>\
+                        <td>' + (feature.properties['Morgue'] !== null ? Autolinker.link(String(feature.properties['Morgue'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Laboratoire</th>\
+                        <td>' + (feature.properties['Laboratoir'] !== null ? Autolinker.link(String(feature.properties['Laboratoir'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Loge Gardie</th>\
+                        <td>' + (feature.properties['LogeGardie'] !== null ? Autolinker.link(String(feature.properties['LogeGardie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Letat Infrastructure</th>\
+                        <td>' + (feature.properties['Letat Infr'] !== null ? Autolinker.link(String(feature.properties['Letat Infr'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Voiture de service</th>\
+                        <td>' + (feature.properties['Voiture de'] !== null ? Autolinker.link(String(feature.properties['Voiture de'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Motocyclette de service</th>\
+                        <td>' + (feature.properties['Motocyclet'] !== null ? Autolinker.link(String(feature.properties['Motocyclet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ambulance</th>\
+                        <td>' + (feature.properties['Ambulance'] !== null ? Autolinker.link(String(feature.properties['Ambulance'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Proprietaire foncier</th>\
+                        <td>' + (feature.properties['Proprietai'] !== null ? Autolinker.link(String(feature.properties['Proprietai'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Location</th>\
+                        <td>' + (feature.properties['Location'] !== null ? Autolinker.link(String(feature.properties['Location'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Plan du batiment</th>\
+                        <td>' + (feature.properties['Plan du Ba'] !== null ? Autolinker.link(String(feature.properties['Plan du Ba'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Presence maladie Infectueuse</th>\
+                        <td>' + (feature.properties['PRESENCE_M'] !== null ? Autolinker.link(String(feature.properties['PRESENCE_M'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Presence maladie Chronique</th>\
+                        <td>' + (feature.properties['PRESENCE_1'] !== null ? Autolinker.link(String(feature.properties['PRESENCE_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">_index</th>\
+                        <td>' + (feature.properties['_index'] !== null ? Autolinker.link(String(feature.properties['_index'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CentredeSante_6_0() {
+            return {
+                pane: 'pane_CentredeSante_6',
+                shape: 'diamond',
+                radius: 4.8,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(11,135,40,1.0)',
+            }
+        }
+        map.createPane('pane_CentredeSante_6');
+        map.getPane('pane_CentredeSante_6').style.zIndex = 406;
+        map.getPane('pane_CentredeSante_6').style['mix-blend-mode'] = 'normal';
+        var layer_CentredeSante_6 = new L.geoJson(json_CentredeSante_6, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_CentredeSante_6',
+            onEachFeature: pop_CentredeSante_6,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_CentredeSante_6_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_CentredeSante_6);
+        map.addLayer(layer_CentredeSante_6);
+        function pop_CentreEtatCivil_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Commune</th>\
+                        <td>' + (feature.properties['Commune'] !== null ? Autolinker.link(String(feature.properties['Commune'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Quartier</th>\
+                        <td>' + (feature.properties['Quartier'] !== null ? Autolinker.link(String(feature.properties['Quartier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Centre dEtat Civil</th>\
+                        <td>' + (feature.properties['Centre dEtat Civil'] !== null ? Autolinker.link(String(feature.properties['Centre dEtat Civil'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nom Et Prenom</th>\
+                        <td>' + (feature.properties['Nom Et Prenom'] !== null ? Autolinker.link(String(feature.properties['Nom Et Prenom'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Profession</th>\
+                        <td>' + (feature.properties['Profession'] !== null ? Autolinker.link(String(feature.properties['Profession'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Age</th>\
+                        <td>' + (feature.properties['Age'] !== null ? Autolinker.link(String(feature.properties['Age'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Sexe</th>\
+                        <td>' + (feature.properties['Sexe'] !== null ? Autolinker.link(String(feature.properties['Sexe'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre Juriste</th>\
+                        <td>' + (feature.properties['Nombre Juriste'] !== null ? Autolinker.link(String(feature.properties['Nombre Juriste'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre Secretaires Administratives</th>\
+                        <td>' + (feature.properties['Nombre Secretaires Administratives'] !== null ? Autolinker.link(String(feature.properties['Nombre Secretaires Administratives'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Comptables</th>\
+                        <td>' + (feature.properties['Comptables'] !== null ? Autolinker.link(String(feature.properties['Comptables'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre Regisseurs</th>\
+                        <td>' + (feature.properties['Nombre Regisseurs'] !== null ? Autolinker.link(String(feature.properties['Nombre Regisseurs'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Chauffeurs</th>\
+                        <td>' + (feature.properties['Chauffeurs'] !== null ? Autolinker.link(String(feature.properties['Chauffeurs'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre Gardiens</th>\
+                        <td>' + (feature.properties['Nombre Gardiens'] !== null ? Autolinker.link(String(feature.properties['Nombre Gardiens'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Hommes Fonctionnaires dEtat</th>\
+                        <td>' + (feature.properties['Hommes Fonctionnaires dEtat'] !== null ? Autolinker.link(String(feature.properties['Hommes Fonctionnaires dEtat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Femmes Fonctionnaires dEtat</th>\
+                        <td>' + (feature.properties['Femmes Fonctionnaires dEtat'] !== null ? Autolinker.link(String(feature.properties['Femmes Fonctionnaires dEtat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Homme Fonctionnaires Collectivites</th>\
+                        <td>' + (feature.properties['Homme Fonctionnaires Collectivites'] !== null ? Autolinker.link(String(feature.properties['Homme Fonctionnaires Collectivites'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Femmes Fonctionnaires Collectivites</th>\
+                        <td>' + (feature.properties['Femmes Fonctionnaires Collectivites'] !== null ? Autolinker.link(String(feature.properties['Femmes Fonctionnaires Collectivites'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Hommes Contractuels</th>\
+                        <td>' + (feature.properties['Hommes Contractuels'] !== null ? Autolinker.link(String(feature.properties['Hommes Contractuels'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Femmes Contractuels</th>\
+                        <td>' + (feature.properties['Femmes Contractuels'] !== null ? Autolinker.link(String(feature.properties['Femmes Contractuels'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure bon etat</th>\
+                        <td>' + (feature.properties['Infrastructure bon etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure bon etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Mauvais etat</th>\
+                        <td>' + (feature.properties['Infrastructure Mauvais etat'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Mauvais etat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure en Dalle</th>\
+                        <td>' + (feature.properties['Infrastructure en Dalle'] !== null ? Autolinker.link(String(feature.properties['Infrastructure en Dalle'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Infrastructure Tolle</th>\
+                        <td>' + (feature.properties['Infrastructure Tolle'] !== null ? Autolinker.link(String(feature.properties['Infrastructure Tolle'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Location</th>\
+                        <td>' + (feature.properties['Location'] !== null ? Autolinker.link(String(feature.properties['Location'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Proprietaire Foncier</th>\
+                        <td>' + (feature.properties['Proprietaire Foncier'] !== null ? Autolinker.link(String(feature.properties['Proprietaire Foncier'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Presence de Drapeau</th>\
+                        <td>' + (feature.properties['Presence de Drapeau'] !== null ? Autolinker.link(String(feature.properties['Presence de Drapeau'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Mur  Cloture</th>\
+                        <td>' + (feature.properties['Mur  Cloture'] !== null ? Autolinker.link(String(feature.properties['Mur  Cloture'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Plan Du Bâtiment</th>\
+                        <td>' + (feature.properties['Plan Du Bâtiment'] !== null ? Autolinker.link(String(feature.properties['Plan Du Bâtiment'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Vehicule de Service</th>\
+                        <td>' + (feature.properties['Vehicule de Service'] !== null ? Autolinker.link(String(feature.properties['Vehicule de Service'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Motocyclette de Service</th>\
+                        <td>' + (feature.properties['Motocyclette de Service'] !== null ? Autolinker.link(String(feature.properties['Motocyclette de Service'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">latitude</th>\
+                        <td>' + (feature.properties['latitude'] !== null ? Autolinker.link(String(feature.properties['latitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">longitude</th>\
+                        <td>' + (feature.properties['longitude'] !== null ? Autolinker.link(String(feature.properties['longitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">field_33</th>\
+                        <td>' + (feature.properties['field_33'] !== null ? Autolinker.link(String(feature.properties['field_33'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CentreEtatCivil_7_0() {
+            return {
+                pane: 'pane_CentreEtatCivil_7',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(1,1,1,1.0)',
+            }
+        }
+        map.createPane('pane_CentreEtatCivil_7');
+        map.getPane('pane_CentreEtatCivil_7').style.zIndex = 407;
+        map.getPane('pane_CentreEtatCivil_7').style['mix-blend-mode'] = 'normal';
+        var layer_CentreEtatCivil_7 = new L.geoJson(json_CentreEtatCivil_7, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_CentreEtatCivil_7',
+            onEachFeature: pop_CentreEtatCivil_7,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_CentreEtatCivil_7_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_CentreEtatCivil_7);
+        map.addLayer(layer_CentreEtatCivil_7);
+        var title = new L.Control();
+        title.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info');
+            this.update();
+            return this._div;
+        };
+        title.update = function () {
+            this._div.innerHTML = '<h2>EQUIPEMENT D\'INTERÊT PUBLIQUE BAMAKO</h2>';
+        };
+        title.addTo(map);
+        var baseMaps = {'OSM HOT': basemap0, 'OSM': basemap1, 'OSM B&W': basemap2};
+        L.control.layers(baseMaps,{'<img src="legend/CentreEtatCivil_7.png" /> Centre Etat Civil': layer_CentreEtatCivil_7,'<img src="legend/CentredeSante_6.png" /> Centre de Sante': layer_CentredeSante_6,'<img src="legend/Prescolaire_5.png" /> Pre-scolaire': layer_Prescolaire_5,'<img src="legend/1erCycle_4.png" /> 1er Cycle': layer_1erCycle_4,'<img src="legend/SecondCycle_3.png" /> Second Cycle': cluster_SecondCycle_3,'<img src="legend/SecondaireGeneral_2.png" /> Secondaire General': cluster_SecondaireGeneral_2,'<img src="legend/Lycee_1.png" /> Lycee': layer_Lycee_1,'<img src="legend/EcoleCoranique_0.png" /> Ecole Coranique': layer_EcoleCoranique_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
